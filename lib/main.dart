@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async';
+import 'dart:io';
 
 void main() => runApp(const MaterialApp(home: LogoApp()));
 
@@ -141,7 +145,28 @@ class Notes extends StatefulWidget {
 }
 
 class _NotesState extends State<Notes> {
-  final myController = TextEditingController();
+  final TextEditingController notesController = TextEditingController();
+  String nameKey = "notes";
+
+  Future<String> loadData() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getString(nameKey)!;
+  }
+
+  Future<bool> saveData() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return await preferences.setString(nameKey, notesController.text);
+  }
+
+  @override
+  void initState() {
+    loadData().then((value) {
+      setState(() {
+        notesController.text = value;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,26 +176,39 @@ class _NotesState extends State<Notes> {
       ),
       body: Column(
         children: <Widget>[
-          TextFormField(
-            controller: myController,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+            child: TextField(
+              maxLines: 8,
+              controller: notesController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter your notes here',
+              ),
+            ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
             child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(50), // NEW
+              ),
               onPressed: () {
-                if (myController.text == '123') {
-                  print('correct');
-                } else {
-                  print('incorrect');
-                }
+                saveData();
               },
-              child: const Text('Submit'),
+              child: const Text('SIMPAN'),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(50), // NEW
+              ),
+              onPressed: () {
+                SystemNavigator.pop();
+              },
+              child: const Text('TUTUP CATATAN RAHASIA'),
             ),
           ),
         ],
