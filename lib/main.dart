@@ -172,7 +172,7 @@ class _NotesState extends State<Notes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Secret Notes'),
+        title: const Text('Secret Notes Daffa'),
       ),
       body: Column(
         children: <Widget>[
@@ -195,6 +195,9 @@ class _NotesState extends State<Notes> {
               ),
               onPressed: () {
                 saveData();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Saved.')),
+                );
               },
               child: const Text('SIMPAN'),
             ),
