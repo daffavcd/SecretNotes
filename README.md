@@ -1,16 +1,14 @@
-# jb14
+# Release App Version Secret Notes
 
-A new Flutter project.
+## Create and Upload keystore
+<img src="/sss/1.png" title="Screenshot 1"/>
 
-## Getting Started
+## Build Release APK
+<img src="/sss/2.png" title="Screenshot 2"/>
 
-This project is a starting point for a Flutter application.
+## Try Installing APK on Android
+<img src="/sss/3.jpeg" title="Screenshot 3"/>
 
-A few resources to get you started if this is your first Flutter project:
+## Secret Notes
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Local storage, animation, release build apk.
